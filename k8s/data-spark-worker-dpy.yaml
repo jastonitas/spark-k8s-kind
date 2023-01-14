@@ -16,16 +16,16 @@ spec:
     spec:
       containers:
       - name: spark-master-ctnr
-        image: local-data/spark-slave:spark-3.2.1
+        image: local-data/spark-worker:spark-3.2.1
         ports:
         - containerPort: 8081
         volumeMounts:
         - name: data-spark-volume
           mountPath: /data/spark-worker
         env:
-        - name: "MASTER_PORT_7077_TCP_ADDR"
+        - name: "SPARK_MASTER_ADDR"
           value: "spark-master-svc.default.svc"
-        - name: "MASTER_PORT_7077_TCP_PORT"
+        - name: "SPARK_MASTER_PORT"
           value: "81"
       volumes:
       - name: data-spark-volume

@@ -11,4 +11,4 @@ RUN apt-get update && apt-get install -y \
 
 ENV SPARK_HOME /home/spark/spark-3.3.1-bin-hadoop2
 
-ENTRYPOINT /home/spark/spark-3.3.1-bin-hadoop2/bin/spark-class org.apache.spark.deploy.worker.Worker $MASTER_PORT_7077_TCP_ADDR:$MASTER_PORT_7077_TCP_PORT
+ENTRYPOINT /home/spark/spark-3.3.1-bin-hadoop2/bin/spark-class org.apache.spark.deploy.worker.Worker $SPARK_MASTER_ADDR:$SPARK_MASTER_PORT
