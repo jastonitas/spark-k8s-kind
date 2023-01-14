@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-master-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: spark-master-app
+  ports:
+    - name: spark
+      port: 81
+      targetPort: 7077

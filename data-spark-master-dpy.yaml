@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-master-deployment
+  labels:
+    app: spark-master-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-master-app
+  template:
+    metadata:
+      labels:
+        app: spark-master-app
+    spec:
+      containers:
+      - name: spark-master-ctnr
+        image: local-data/spark-master:spark-3.2.1
+        ports:
+        - containerPort: 7077
+        - containerPort: 8080
+        volumeMounts:
+        - name: data-spark-volume
+          mountPath: /data/spark
+      volumes:
+      - name: data-spark-volume
+        persistentVolumeClaim:
+          claimName: data-spark-pvc

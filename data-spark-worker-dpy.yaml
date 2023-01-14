@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-worker-deployment
+  labels:
+    app: spark-worker-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-worker-app
+  template:
+    metadata:
+      labels:
+        app: spark-worker-app
+    spec:
+      containers:
+      - name: spark-master-ctnr
+        image: local-data/spark-slave:spark-3.2.1
+        ports:
+        - containerPort: 8081
+        volumeMounts:
+        - name: data-spark-volume
+          mountPath: /data/spark-worker
+        env:
+        - name: "MASTER_PORT_7077_TCP_ADDR"
+          value: "spark-master-svc.default.svc"
+        - name: "MASTER_PORT_7077_TCP_PORT"
+          value: "81"
+      volumes:
+      - name: data-spark-volume
+        persistentVolumeClaim:
+          claimName: data-spark-pvc
