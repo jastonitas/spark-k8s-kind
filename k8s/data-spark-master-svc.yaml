@@ -10,3 +10,7 @@ spec:
     - name: spark
       port: 81
       targetPort: 7077
+    - name: webui
+      port: 8080
+      targetPort: 8088
+

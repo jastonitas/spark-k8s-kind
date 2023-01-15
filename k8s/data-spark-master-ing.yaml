@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-spark-ui-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: spark-host
+    http:
+      paths:
+      - pathType: Prefix
+        path: /(/|$)(.*)
+        backend:
+          service:
+            name: spark-master-svc
+            port:
+              number: 8080
+
